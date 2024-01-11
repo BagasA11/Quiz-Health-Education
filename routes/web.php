@@ -19,6 +19,3 @@ Route::get('/', function () {
 Route::get('/endpoint', function (){
     return view('test');
 });
-Route::get('/login', function (){
-    return view('welcome');
-})->name('login');

@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/halo', function () {
     return response()->json(['pesan' => 'halo']);
 });
-Route::get('/user', [UserController::class, 'index']);
-Route::post('/user/register', [UserController::class, 'register']);
+
+
 // Route::get('/email/verify', function () {
 //     return view('auth.verify-email');
 // })->middleware('auth')->name('verification.notice');

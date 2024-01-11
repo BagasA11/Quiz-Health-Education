@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/halo', function () {
     return response()->json(['pesan' => 'halo']);
 });
-
-
+Route::post('/register', [RegisterController::class, 'userregister']);
+Route::middleware('auth:api')->get('/admin', [AdminController::class, 'index']);
 // Route::get('/email/verify', function () {
 //     return view('auth.verify-email');
 // })->middleware('auth')->name('verification.notice');

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Score extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     /**
      * Score m:1 user
      *

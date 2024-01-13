@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\UserController;
@@ -18,11 +19,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 Route::post('/user/register', [UserController::class, 'register']);
 Route::post('/user/login', [UserController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/quiz', [QuizController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/score/rank', [ScoreController::class, 'rank']);
+Route::middleware('auth:sanctum,admin')->post('/quiz/create', [QuizController::class, 'create']);
+Route::post('/admin/login', [AdminController::class, 'login']);
+Route::middleware('auth:sanctum,admin')->get('/admin/logout', [AdminController::class, 'logout']);
+Route::middleware('auth:sanctum')->get('/user/logout', [UserController::class, 'logout']);
 // Route::get('/score/leaderboard', [ScoreController::class, 'all']);

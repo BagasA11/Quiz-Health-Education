@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Validator;
 
-use function Laravel\Prompts\error;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -25,26 +27,40 @@ class UserController extends Controller
         }
         $request['password'] = bcrypt($request['password']);
         $user = User::create($request->except('c_pass'));
-        return response()->json([$user, $user->createToken('user_token')->plainTextToken]);
+        return response()->json([$user, $user->createToken('user_token', ['user'])->plainTextToken]);
     }
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $request->validate([
             'username'=>'required',
-            'password'=>'required',
+            'password'=>'required'
         ]);
-        if($validator->failed()){
-            return response()->json($validator->errors(), 401);
+        // Cari pengguna berdasarkan email
+        $user = User::where('username', $request->username)->first();   
+        if(!$user || !Hash::check($request->password, $user->password)){
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
         }
-        if(!Auth::attempt(['username'=>$request->username, 'password'=>$request->password])){
-            return response()->json(['credential invalid', $request->all()], 401);
-        }
-        $user = Auth::user();
-        
+         // Kembalikan token sebagai respons
         return response()->json([
-            'user'=>$user, 
-            'token'=>$user->createToken('user_token')->plainTextToken
+            'token' => 
+            $user->createToken('user token', ['user'])
+            ->plainTextToken
         ]);
     }
+
+    public function logout(Request $request) 
+    {
+        //mengecek tipe user berdasarkan token
+        if (!$request->user()->tokenCan('user')) {
+            return response()->json('forbidden access', 403);
+        }
+        // Hapus token saat ini
+        $request->user()->currentAccessToken()->delete();
+        // Kembalikan pesan sebagai respons
+        return response()->json(['message' => 'Logged out']);
+    }
+
 }

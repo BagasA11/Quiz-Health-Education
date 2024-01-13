@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Option extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     /**
      * option m:1 question
      *

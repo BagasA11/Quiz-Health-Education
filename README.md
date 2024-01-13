@@ -1,66 +1,84 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Proyek Kuis Edukasi Kesehatan
+Kuis ini merupakan proyek milik Tim Challangers<br>
+Endpoint api untuk mendapatkan data dari server <br>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Daftar Isi
+- [Instalasi](#instalasi)
+- [Menggunakan API](#menggunakan-api)
+  - [Registrasi user](api/user/register) 
+  - [Endpoint 2](#endpoint-2)
+- [Autentikasi](#autentikasi)
+- [Contoh Permintaan](#contoh-permintaan)
+- [Tanggapan API](#tanggapan-api)
+- [Kesalahan API](#kesalahan-api)
+- [Contoh Kode](#contoh-kode)
+- [Kontribusi](#kontribusi)
+- [Lisensi](#lisensi)
 
-## About Laravel
+## Instalasi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<a href="laravel.com/docs/10.x">dokumentasi</a><br>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Penggunaan Api
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+jalan kan perintah --bash php artisan serve pada terminal <br>
+lalu dapatkan port alamat server <br>
 
-## Learning Laravel
+arahkan url pada alamat berikut:<br>
+http://127.0.0.1:8000/api
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Registrasi user
+url: http://127.0.0.1:8000/api/user/register <br>
+-h: Accept:application/json <br>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+response: <br>
+[
+    {
+        "username": "halodunia008",
+        "email": "bagas37@gmail.com",
+        "updated_at": "2024-01-12T16:01:52.000000Z",
+        "created_at": "2024-01-12T16:01:52.000000Z",
+        "id": 9
+    },
+    "8|wJNVwW5iksRL8dTg0bxrbUdemMsyjgxRrkMML6lb66f2d869"
+] <br>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Login User
+url: http://127.0.0.1:8000/api/user/login <br>
+-h: Accept:application/json <br>
 
-## Laravel Sponsors
+response: <br>
+{
+    "user": {
+        "id": 8,
+        "username": "halodunia007",
+        "email": "bagas36@gmail.com",
+        "email_verified_at": null,
+        "avatar": null,
+        "bio": null,
+        "created_at": "2024-01-12T15:14:20.000000Z",
+        "updated_at": "2024-01-12T15:14:20.000000Z"
+    },
+    "token": "7|CgVVsJCRHThF4c1CO0Bqu0Xgz0kMaJvJE0wZb9Iv24c22a1c"
+} <br>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Daftar Sampul Quiz
+melihat daftar sampul kuis pada halaman dashboard <br><br>
+url: http://127.0.0.1:8000/api/user/login <br>
+-h: Accept:application/json <br>
+-h: Authorization:Bearer 7|CgVVsJCRHThF4c1CO0Bqu0Xgz0kMaJvJE0wZb9Iv24c22a1c<br>
 
-### Premium Partners
+response: <br>
+[
+    {
+        "id": 1,
+        "title": "Empat Sehat 5 Sempurna",
+        "img": null,
+        "isfree": 1,
+        "price": null,
+        "disc": null,
+        "created_at": "2024-01-12T00:00:00.000000Z"
+    }
+] <br>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

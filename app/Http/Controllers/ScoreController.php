@@ -9,6 +9,13 @@ class ScoreController extends Controller
 {
     public function rank()
     {
-        return response()->json(Score::with('user')->get());   
+        $score = Score::with('user:id,username')->orderBy('score', 'desc')->get();
+        return response()->json(
+            $score
+        );
+    }
+    public function calculate(Request $request)
+    {
+        
     }
 }

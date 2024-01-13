@@ -17,10 +17,8 @@ class UserBearerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
-        //Authorization
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Authorization', 'Bearer ');
-        return $response;
+    
+
+
     }
 }

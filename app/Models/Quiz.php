@@ -13,6 +13,8 @@ class Quiz extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'img', 'isfree', 'price', 'disc'];
+    public $timestamps = false;
     /**
      * Quiz 1:m Score
      *

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\UserController;
@@ -30,4 +31,6 @@ Route::middleware('auth:sanctum,admin')->post('/quiz/create', [QuizController::c
 Route::post('/admin/login', [AdminController::class, 'login']);
 Route::middleware('auth:sanctum,admin')->get('/admin/logout', [AdminController::class, 'logout']);
 Route::middleware('auth:sanctum')->get('/user/logout', [UserController::class, 'logout']);
+Route::middleware('auth:sanctum,admin')->post('/quiz/{id}/create', [QuestionController::class, 'create']);
+Route::middleware('auth:sanctum')->post('/user/detail', [UserController::class, 'getUser']);
 // Route::get('/score/leaderboard', [ScoreController::class, 'all']);

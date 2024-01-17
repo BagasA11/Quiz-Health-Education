@@ -12,6 +12,8 @@ class Question extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    protected $fillable = ['question', 'img', 'answer', 'quiz_id'];
      /**
      * Question 1:m Option
      *
